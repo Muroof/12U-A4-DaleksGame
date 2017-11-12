@@ -73,7 +73,7 @@ public class Dalek {
     /**
      * Sets the Dalek to be in a crashed state.
      */
-    public void crash() {
+    public void crash()  {
         this.hasCrashed = true;
 
     }
