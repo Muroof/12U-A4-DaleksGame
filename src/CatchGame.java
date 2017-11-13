@@ -15,16 +15,11 @@ public class CatchGame {
     // create a board
     private Board b = new Board(12, 12);
     // create three Daleks
-//    private Dalek beshoy = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
-//    private Dalek kiran = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
-//    private Dalek shaq = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
-//    // create a doctor
-//    private Doctor player = new Doctor((int) (Math.random() * 12), (int) (Math.random() * 12));
-    private Dalek kiran = new Dalek(6, 5);
-    private Dalek beshoy = new Dalek(5, 5);
-    private Dalek shaq = new Dalek(4, 5);
+    private Dalek beshoy = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
+    private Dalek kiran = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
+    private Dalek shaq = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
     // create a doctor
-    private Doctor player = new Doctor(5, 7);
+    private Doctor player = new Doctor((int) (Math.random() * 12), (int) (Math.random() * 12));
 
     /**
      * The constructor for the game. Use it to initialize your game variables.
@@ -32,16 +27,16 @@ public class CatchGame {
      */
     public CatchGame() {
 
-        // doctor spawn
+        // doctor peg spawn
         b.putPeg(Color.GREEN, player.getRow(), player.getCol());
 
-        // dalek beshoy spawn
+        // dalek beshoy peg spawn
         b.putPeg(Color.BLACK, beshoy.getRow(), beshoy.getCol());
 
-        // dalek kiran spawn
+        // dalek kiran peg spawn
         b.putPeg(Color.BLACK, kiran.getRow(), kiran.getCol());
 
-        // dalek shaq spawn
+        // dalek shaq peg spawn
         b.putPeg(Color.BLACK, shaq.getRow(), shaq.getCol());
 
     }
@@ -87,14 +82,16 @@ public class CatchGame {
                 b.putPeg(Color.RED, shaq.getRow(), shaq.getCol());
             }
 
+            // if the doctor is on the same sqaure as any dalek, the player loses
             if (player.getRow() == kiran.getRow() && player.getCol() == kiran.getCol() || player.getRow() == beshoy.getRow() && player.getCol() == beshoy.getCol() || player.getRow() == shaq.getRow() && player.getCol() == shaq.getCol()) {
                 b.putPeg(Color.YELLOW, player.getRow(), player.getCol());
-                b.displayMessage("You Lost lmao");
+                b.displayMessage("GAME OVER, Doctor was captured");
                 break;
             }
 
+            // if all the daleks have crashed, the player wins
             if (kiran.hasCrashed() && beshoy.hasCrashed() && shaq.hasCrashed()) {
-                b.displayMessage("Ay winner");
+                b.displayMessage("YOU WIN, all Daleks crashed");
                 break;
             }
 
@@ -104,33 +101,33 @@ public class CatchGame {
             int clickRow = click.getRow();
             int clickCol = click.getCol();
 
-            // when a click is made, move the doctos pin
+            // when a click is made, remove the doctors old pin and place a new one
             b.removePeg(player.getRow(), player.getCol());
             player.move(clickRow, clickCol);
             b.putPeg(Color.GREEN, player.getRow(), player.getCol());
 
-            
-            // when a click is made, and kiran isn't crashed, move kiran's pin
+            // when a click is made, and kiran isn't crashed
             if (!kiran.hasCrashed()) {
-                // dalek kiran
+                // remove kirans old pin
                 b.removePeg(kiran.getRow(), kiran.getCol());
+                // advance towards the doctor
                 kiran.advanceTowards(player);
-                System.out.println("KIRAN MOVED");
             }
-            // when a click is made, and beshoy isn't crashed, move behsoy's pin
+            // when a click is made, and beshoy isn't crashed
             if (!beshoy.hasCrashed()) {
-                // dalek beshoy
+                // remove beshoys old pin
                 b.removePeg(beshoy.getRow(), beshoy.getCol());
+                // advance towards the doctor
                 beshoy.advanceTowards(player);
-                System.out.println("BESHOY MOVED");
             }
-            // when a click is made, and shaq isn't crashed, move shaq's pin
+            // when a click is made, and shaq isn't crashed
             if (!shaq.hasCrashed()) {
-                // dalek shaq
+                // remove shaqs old pin
                 b.removePeg(shaq.getRow(), shaq.getCol());
+                // advance towards the player
                 shaq.advanceTowards(player);
-                System.out.println("SHAQ MOVED CHUZ");
             }
+            // after "moving" all the daleks, place their pegs in the position they moved
             b.putPeg(Color.BLACK, kiran.getRow(), kiran.getCol());
             b.putPeg(Color.BLACK, beshoy.getRow(), beshoy.getCol());
             b.putPeg(Color.BLACK, shaq.getRow(), shaq.getCol());

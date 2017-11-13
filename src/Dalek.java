@@ -28,25 +28,26 @@ public class Dalek {
      * @param doc The Doctor to move towards.
      */
     public void advanceTowards(Doctor doc) {
+        // create two integers for the row and col difference between a dalek and the doctor
         int disRow = doc.getRow() - this.row;
         int disCol = doc.getCol() - this.col;
-        
+
+        // if the doctor is below the dalek, the dalek should move a row down
         if (disRow > 0) {
             this.row++;
         }
+        // if the doctor is above the dalek, the dalek should move up a row
         if (disRow < 0) {
             this.row--;
         }
-        if (disCol > 0){
+        // if the doctor is to the left of the dalek, the dalek should move a column left
+        if (disCol > 0) {
             this.col++;
         }
-        if(disCol < 0){
+        // if the doctor is to the right of the dalek, the dalek should move a column right
+        if (disCol < 0) {
             this.col--;
         }
-        
-        
-        
-        
 
     }
 
@@ -73,7 +74,7 @@ public class Dalek {
     /**
      * Sets the Dalek to be in a crashed state.
      */
-    public void crash()  {
+    public void crash() {
         this.hasCrashed = true;
 
     }

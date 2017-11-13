@@ -30,9 +30,9 @@ public class Doctor {
      * @param newCol The column the player clicked on.
      */
     public void move(int newRow, int newCol) {
+        // create two integers for the row and col difference between the doctors position and the clicks position
         int difRow = newRow - this.row;
         int difCol = newCol - this.col;
-
 
         // if you click on the doctor, it will not move
         if (newRow == this.row && newCol == this.col) {
@@ -44,13 +44,12 @@ public class Doctor {
         if (difCol >= -1 && difCol <= 1 && difRow >= -1 && difRow <= 1) {
             this.col = newCol;
             this.row = newRow;
-            
-          // if the click is not on a spot immediately near the doctor, teleport randomly  
+
+            // if the click is not on a spot immediately near the doctor, teleport randomly  
         } else {
             this.col = (int) (Math.random() * 12);
             this.row = (int) (Math.random() * 12);
         }
-
 
     }
 
